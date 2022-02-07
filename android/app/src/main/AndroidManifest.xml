@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.customerglu.nudgetest">
+    package="com.example.fluttersdkapp">
    <application
-        android:label="nudgetest"
+        android:label="fluttersdkapp"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
