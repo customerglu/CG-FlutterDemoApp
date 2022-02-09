@@ -1,11 +1,7 @@
-// ignore: file_names
-
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
-import 'package:fluttersdkapp/shopScreen.dart';
 
 import 'cartScreen.dart';
+import 'shopScreen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
