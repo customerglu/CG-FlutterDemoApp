@@ -1,4 +1,6 @@
+import 'package:cgdemoplugin/cgdemoplugin.dart';
 import 'package:flutter/material.dart';
+import 'package:nudgetest/testScreen.dart';
 
 import 'cartScreen.dart';
 import 'shopScreen.dart';
@@ -12,6 +14,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    registerUser();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            boxIcon("assets/images/purse.png", "Wallet", () => {print("1")}),
-            boxIcon("assets/images/quiz.png", "Campaigns", () => {print("12")}),
+            boxIcon("assets/images/purse.png", "Wallet", () => {Cgdemoplugin.openWallet()}),
+            boxIcon("assets/images/quiz.png", "Campaigns", () => {}),
           ],
         ),
         const SizedBox(height: 30),
@@ -41,11 +51,11 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             boxIcon(
-                "assets/images/shop.png",
-                "Shop",
+                "assets/images/onlineshopping.png",
+                "Test Screen",
                 () => {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => ShopScreen()))
+                          MaterialPageRoute(builder: (context) => TestScreen()))
                     }),
             boxIcon(
                 "assets/images/trolley.png",

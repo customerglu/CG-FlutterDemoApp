@@ -3,6 +3,8 @@
    <application
         android:label="nudgetest"
         android:icon="@mipmap/ic_launcher">
+       <meta-data android:name="CUSTOMERGLU_WRITE_KEY"
+           android:value="xgwD32VLRTQqG9PjzfpEQtDMUQBsud7R" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

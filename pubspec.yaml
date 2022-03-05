@@ -35,6 +35,7 @@ dependencies:
   provider: 4.3.2+2
   http: ^0.13.3
   shared_preferences:
+  cgdemoplugin: ^0.0.1
 
 
 dev_dependencies:
