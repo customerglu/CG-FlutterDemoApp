@@ -57,8 +57,7 @@ class _CartState extends State<CartScreen> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: Colors.black),
                     onPressed: () => {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => CartScreen()))
+                      Navigator.pop(context)
                     },
                     child: Center(
                       child: Text("Buy Now"),
