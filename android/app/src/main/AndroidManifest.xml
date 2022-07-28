@@ -1,8 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.customerglu.nudgetest">
-   <application
-        android:label="nudgetest"
+
+    <application
+        android:label="FlutterApp"
         android:icon="@mipmap/ic_launcher">
+       <meta-data android:name="CUSTOMERGLU_WRITE_KEY"
+           android:value="xgwD32VLRTQqG9PjzfpEQtDMUQBsud7R" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

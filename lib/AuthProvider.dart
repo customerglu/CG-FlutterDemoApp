@@ -20,7 +20,7 @@ class AuthProvider with ChangeNotifier {
 
     try {
       Response response;
-      response = await post(Uri.parse(Constant.LOGIN), body: param);
+      response = await post(Uri.parse(""), body: param);
       //  await pr.hide();
       //  Navigator.pop(cxt);
       print(response.statusCode);
