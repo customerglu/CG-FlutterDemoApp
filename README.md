@@ -85,3 +85,4 @@ $ flutter run
     </p>
    - **disableGluSdk** will disable all the functionalities.
 
+You can check more about the documentation by clicking [here](https://docs.customerglu.com/sdk/flutter)
