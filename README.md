@@ -83,6 +83,7 @@ $ flutter run
         <img src="https://media.discordapp.net/attachments/1003367861609308263/1003378452080115792/bottom_notification.gif?width=296&height=634"/>
         <img src="https://media.discordapp.net/attachments/1003367861609308263/1003378467129262161/mid_notification.gif?width=296&height=634"/>
     </p>
+   - **LoaderColour** lets you change the color of the loader while it waits for the WebView to load in.
    - **disableGluSdk** will disable all the functionalities.
 
 You can check more about the documentation by clicking [here](https://docs.customerglu.com/sdk/flutter)
