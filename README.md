@@ -1,6 +1,6 @@
-# nudgetest
+# customerglu_plugin_example
 
-A new Flutter application.
+Demonstrates how to use the customerglu_plugin plugin.
 
 ## Getting Started
 

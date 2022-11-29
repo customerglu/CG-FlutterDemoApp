@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -12,34 +14,18 @@ import 'SplashScreen.dart';
 Future<void> backgroundHandler(RemoteMessage message) async {
   print("backgroundHandler(RemoteMessage message)");
   await Firebase.initializeApp();
+  CustomergluPlugin.displayCustomerGluBackgroundNotification(message.data);
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
-  // final NotificationAppLaunchDetails? notificationAppLaunchDetails =
-  //     await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-  // if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-  //   //  runApp(MyApp());
-  //   // selectedNotificationPayload =
-  //   //     notificationAppLaunchDetails!.payload.toString();
-  //   selectedNotificationPayload = await LocalStore().getAppSharePopUp();
-  //   myurl = selectedNotificationPayload;
-  //   print(myurl);
-
-  //    SystemChrome.setPreferredOrientations(
-  //     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
-  //   runApp(MyApp());
-  // });
-  // } else {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     runApp(MyApp());
   });
 }
-//}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -61,8 +47,8 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.instance.getInitialMessage().then((message) async {
       print("FirebaseMessaging.instance.getInitialMessage().then((message)");
       if (message != null) {
-        if (message.data["type"] != null &&
-            message.data["type"] == "CustomerGlu") print("initial");
+        CustomergluPlugin.displayCustomerGluBackgroundNotification(
+            message.data);
       }
     });
 
@@ -71,35 +57,43 @@ class _MyAppState extends State<MyApp> {
     messaging.getToken().then((value) {
       print("fcm token" + value.toString());
       fcmtoken = value!;
-      CustomergluPlugin.setApnFcmToken("", fcmtoken);
       LocalStore().setAppSharePopUp(fcmtoken);
-
-      // var profile = {'': ''};
-
-      // DemoPlugin.updateProfile(profile);
-      //Firebase Token
     });
 
     FirebaseMessaging.onMessage.listen((message) {
       print("FirebaseMessaging.onMessage.listen");
-      CustomergluPlugin.displayCustomerGluNotification(message.data);
+      CustomergluPlugin.displayCustomerGluNotification(message.data,
+          autoclosewebview: true, opacity: 0.5);
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       print("FirebaseMessaging.onMessageOpenedApp.listen");
-      CustomergluPlugin.displayBackgroundNotification(message.data);
+      CustomergluPlugin.displayCustomerGluBackgroundNotification(message.data);
     });
 
     broadcast_channel.setMethodCallHandler((call) async {
+      print("home method channel");
+
       switch (call.method) {
         case "CUSTOMERGLU_DEEPLINK_EVENT":
           print("CUSTOMERGLU_DEEPLINK_EVENT");
           print(call.arguments);
+          var json = jsonDecode(call.arguments);
+          print(json["name"]);
           break;
         case "CUSTOMERGLU_ANALYTICS_EVENT":
-          print("CUSTOMERGLU_ANALYTICS_EVENT");
+          print("CUSTOMERGLU_ANALYTICS_EVENT FROM FLUTTER");
           print(call.arguments);
-
+          var json = jsonDecode(call.arguments);
+          print(json["event_name"]);
+          break;
+        case "CUSTOMERGLU_BANNER_LOADED":
+          print("CUSTOMERGLU_BANNER_LOADED");
+          print(call.arguments);
+          break;
+        case "CG_INVALID_CAMPAIGN_ID":
+          print("CG_INVALID_CAMPAIGN_ID");
+          print(call.arguments);
           break;
       }
     });
@@ -113,37 +107,15 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      // var profile = {'userId': 'JohnWick'};
-      // await DemoPlugin.getInstance();
-      // await DemoPlugin.doRegister(profile, true);
-      // await DemoPlugin.enablePrecaching();
-
-      //   await DemoPlugin.platformVersion ?? 'Unknown platform version';
-    } on PlatformException {
+    try {} on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
-
-    setState(() {
-      // _platformVersion = platformVersion;
-    });
+    setState(() {});
   }
-
-  // Future<void> openWallet() async {
-  //   await DemoPlugin.openWallet();
-  // }
 
   @override
   Widget build(BuildContext context) {
-    // listenBroadcast();
-
     return const MaterialApp(
         debugShowCheckedModeBanner: false, home: SplashScreen());
   }

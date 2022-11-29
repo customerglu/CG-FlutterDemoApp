@@ -29,6 +29,14 @@
             {
               "client_id": "421104677220-rvotgts5086sqldnfrk84nj2i1pll101.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "421104677220-7oi3gboce6kjdfh0gkcvmf6na7r58bq2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.marax.customerdemo",
+                "app_store_id": "1596757104"
+              }
             }
           ]
         }
@@ -58,6 +66,14 @@
             {
               "client_id": "421104677220-rvotgts5086sqldnfrk84nj2i1pll101.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "421104677220-7oi3gboce6kjdfh0gkcvmf6na7r58bq2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.marax.customerdemo",
+                "app_store_id": "1596757104"
+              }
             }
           ]
         }

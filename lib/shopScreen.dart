@@ -1,3 +1,5 @@
+import 'package:customerglu_plugin/customerglu_plugin.dart';
+import 'package:customerglu_plugin/refreshWidget.dart';
 import 'package:flutter/material.dart';
 
 import 'cartScreen.dart';
@@ -10,45 +12,55 @@ class ShopScreen extends StatefulWidget {
 }
 
 class _shopScreenState extends State<ShopScreen> {
+
+  // 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(color: Colors.white),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 50,
-            ),
-            Row(
-              children: [
-                GestureDetector(
-                    onTap: () => {Navigator.of(context).pop()},
-                    child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Icon(Icons.arrow_back_outlined))),
-                Text(
-                  "Shop Screen",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                      fontSize: 22),
-                )
-              ],
-            ),
-            Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                //   physics: NeverScrollableScrollPhysics(),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return productCell();
-                },
+    return CGScreenDetector(
+      classname: "ShopScreen",
+      child: Scaffold(
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 50,
               ),
-            ),
-          ],
+              Row(
+                children: [
+                  GestureDetector(
+                      onTap: () => {Navigator.of(context).pop()},
+                      child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Icon(Icons.arrow_back_outlined))),
+                  Text(
+                    "Shop Screen",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                        fontSize: 22),
+                  )
+                ],
+              ),
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  //   physics: NeverScrollableScrollPhysics(),
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return productCell();
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

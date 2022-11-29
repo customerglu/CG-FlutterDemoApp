@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:customerglu_plugin/customerglu_plugin.dart';
+import 'package:customerglu_plugin/refreshWidget.dart';
+import 'package:customerglu_plugin_example/LocalStore.dart';
+import 'package:customerglu_plugin_example/loginScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:nudgetest/loginScreen.dart';
 
 import 'homeScreen.dart';
 
@@ -12,8 +15,7 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with WidgetsBindingObserver {
+class _SplashScreenState extends State<SplashScreen> {
   String _versionName = 'V1.0';
   final splashDelay = 3;
   bool bacKground = false;
@@ -21,20 +23,13 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance!.addObserver(this);
+    CustomergluPlugin.gluSDKDebuggingMode(true);
+    CustomergluPlugin.configureLoadingScreenColor("#FFFFFF00");
     setupInitial();
   }
 
   setupInitial() async {
     _loadWidget();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    //  super.didChangeAppLifecycleState(state);
-    bacKground = state == AppLifecycleState.paused;
-    print(state);
   }
 
   _loadWidget() async {
@@ -43,24 +38,35 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void navigationPage() async {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-            builder: (context) =>  LoginScreen()),
-        (Route<dynamic> route) => false);
+    bool isLogged = await LocalStore().getUserId();
+    if (isLogged) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => const MyHomePage(
+                    title: "da",
+                  )),
+          (Route<dynamic> route) => false);
+    } else {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+          (Route<dynamic> route) => false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.black,
-        body: Container(
-          child: Center(
-            child: Image.asset(
-              'assets/images/customerglu.jpg',
-              height: 150,
-              width: 150,
-            ),
-          ),
-        ));
+    return CGScreenDetector(
+        classname: this.runtimeType.toString(),
+        child: Scaffold(
+            backgroundColor: Colors.black,
+            body: Container(
+              child: Center(
+                child: Image.asset(
+                  'assets/images/customerglu.jpg',
+                  height: 150,
+                  width: 150,
+                ),
+              ),
+            )));
   }
 }
